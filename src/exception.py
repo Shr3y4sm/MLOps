@@ -1,5 +1,5 @@
 import sys
-
+from src.logger import logging
 from flask import logging 
 
 def error_message_details(eroor, error_detail:sys):
