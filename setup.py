@@ -1,31 +1,27 @@
-from setuptools import find_packages, setup
+from setuptools import find_packages,setup
+from typing import List
 
-HYPHEN_E_DOT = '-e .'
-def get_requirements(file_path:str)->list[str]:
+HYPEN_E_DOT='-e .'
+def get_requirements(file_path:str)->List[str]:
     '''
-    This function will return the list of requirements mentioned in the requirement.txt file
+    this function will return the list of requirements
     '''
+    requirements=[]
+    with open(file_path) as file_obj:
+        requirements=file_obj.readlines()
+        requirements=[req.replace("\n","") for req in requirements]
 
-    requirements = []
-    with open(file_path, 'r', encoding='utf-8') as f:
-        for raw_line in f:
-            req = raw_line.strip()
-
-            # Skip blank lines, comments, editable installs, and pip options.
-            if not req or req.startswith('#'):
-                continue
-            if req == HYPHEN_E_DOT or req.startswith('-e ') or req.startswith('--'):
-                continue
-
-            requirements.append(req)
-
+        if HYPEN_E_DOT in requirements:
+            requirements.remove(HYPEN_E_DOT)
+    
     return requirements
 
 setup(
-    name = "mlops",
-    version = "0.0.1",
-    author = "Shreyas",
-    author_email="mshreyas762@gmail.com",
-    packages = find_packages(),
-    install_requires=get_requirements('requirements.txt')
+name='mlproject',
+version='0.0.1',
+author='Krish',
+author_email='krishnaik06@gmail.com',
+packages=find_packages(),
+install_requires=get_requirements('requirements.txt')
+
 )
